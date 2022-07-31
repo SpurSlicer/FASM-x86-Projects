@@ -4,8 +4,9 @@ entry main                                      ;tells the computer to start at 
 include 'macro/import32.inc'                    ;imports multipurpose macro assembler
 
 section 'data' data readable writeable
-        msg db 'Hello world!',10,0
-        num db 'how are you :)',10,0
+        msg1 db 'Hello world!',10,0
+        msg2 db 'how are you :)',10,0
+        num db 0x17,10,0
         p db 'pause>nul',10,0                   ;this pauses until a key is pressed in the batch
 
 section '.code' code readable executable        ;shows where the code starts
@@ -13,16 +14,26 @@ section '.code' code readable executable        ;shows where the code starts
                 push ebp                        ;sets up the stack
                 mov ebp, esp                    ;sets up the stack
                 sub ebp, 1
-                mov dword [esp], msg
+                mov dword [esp], msg1
                 call [printf]
                 mov dword [esp], p
                 call [system]
-                mov dword [esp], num
+                mov dword [esp], msg2
                 call [printf]
                 mov dword [esp], p
                 call [system]
                 mov dword [esp], 0
-                call [exit]
+                jmp function$
+        function$:
+                mov eax, num
+                push eax
+                mov dword [esp], eax
+                call [printf]
+                mov dword [esp], p
+                call [system]
+                jmp end$
+        end$:
+                call[exit]
 
 section '.idata' import data readable           ;declares imported data section from import32
         library msvcrt, 'msvcrt.dll'            ;downloads a .dll library
