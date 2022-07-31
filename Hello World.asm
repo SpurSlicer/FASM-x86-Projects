@@ -4,9 +4,9 @@ entry main                                      ;tells the computer to start at 
 include 'macro/import32.inc'                    ;imports multipurpose macro assembler
 
 section 'data' data readable writeable
-        msg db "Hello world!",10,0
+        msg db 'Hello world!',10,0
         num db 'how are you :)',10,0
-        p db "pause>nul",10,0                   ;this pauses until a key is pressed in the batch
+        p db 'pause>nul',10,0                   ;this pauses until a key is pressed in the batch
 
 section '.code' code readable executable        ;shows where the code starts
         main:                                   ;main pointer
