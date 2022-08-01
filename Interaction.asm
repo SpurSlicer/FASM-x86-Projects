@@ -32,8 +32,8 @@ section '.code' code readable executable        ;shows where the code starts
                 push resp
                 push formatin
                 call [scanf]
-                mov eax, resp
-                cmp byte [eax], 0x79
+                mov ecx, resp
+                cmp byte [ecx], 0x79
                 je end$
                 mov dword [esp], nresp
                 call[printf]
