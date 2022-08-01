@@ -6,8 +6,9 @@ include 'macro/import32.inc'                    ;imports multipurpose macro asse
 section 'data' data readable writeable
         msg1 db 'Hello!',10,0
         msg2 db 'Want to test cmp [y/n]? ',0
-        y db 'y',0
         n db 'n',0
+        resp db '' ,0
+        formatin db '%c',0
         yresp db 'you said y!',10,0
         nresp db 'you said n!',10,0
         exiting db 'exiting...',10,0
@@ -18,21 +19,22 @@ section '.code' code readable executable        ;shows where the code starts
                 push ebp                        ;sets up the stack
                 mov ebp, esp                    ;sets up the stack
                 sub ebp, 4
-                mov edx, y
                 mov dword [esp], msg1
                 call [printf]
                 mov dword [esp], p
                 call [system]
                 mov dword [esp], msg2
                 call [printf]
-                mov dword [esp], 0
+                add esp, 8
                 jmp conditional$
         conditional$:
                 ;testing
-                call [getchar]
-                and eax, edx
-                cmp ebx, 0
-                jmp end$
+                push resp
+                push formatin
+                call [scanf]
+                mov eax, resp
+                cmp byte [eax], 0x79
+                je end$
                 mov dword [esp], nresp
                 call[printf]
                 mov dword [esp], p
@@ -51,6 +53,5 @@ section '.idata' import data readable           ;declares imported data section 
         import msvcrt,\                         ;imports said library
         printf, 'printf',\                      ;declares external function printf
         system, 'system',\                      ;declares external function system
-        getchar, 'getchar',\                    ;declares external function getchar
-        putchar, 'putchar',\
+        scanf, 'scanf',\
         exit,'exit'                             ;declares external function exit
