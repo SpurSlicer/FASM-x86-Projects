@@ -7,7 +7,7 @@ section 'data' data readable writeable
         msg1 db 'Hello!',10,0
         msg2 db 'Want to test cmp [y/x]? ',0
         n db 'n',0
-        resp db '' ,0
+        resp db '' ,0,0
         formatin db '%c',0
         yresp db 'you said y!',10,0
         nresp db 'you said something other than y!',10,0
@@ -33,7 +33,7 @@ section '.code' code readable executable        ;shows where the code starts
                 push formatin
                 call [scanf]
                 mov ecx, resp
-                cmp byte [ecx], 0x79
+                cmp word [ecx], 0x79
                 je end$
                 mov dword [esp], nresp
                 call[printf]
