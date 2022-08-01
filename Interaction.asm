@@ -55,3 +55,4 @@ section '.idata' import data readable           ;declares imported data section 
         system, 'system',\                      ;declares external function system
         scanf, 'scanf',\                        ;declares external function scanf
         exit,'exit'                             ;declares external function exit
+
