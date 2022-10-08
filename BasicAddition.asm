@@ -16,6 +16,7 @@ section 'data' data readable writable           ;this is where our variables are
 
 
 
+
         ;more vars here
 
 section '.code' code readable executable        ;this is where execution will start
